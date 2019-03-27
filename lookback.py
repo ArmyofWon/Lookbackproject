@@ -10,9 +10,10 @@ total_z = (1+data['zcmb'])*(1+data['zhel'])-1
 
 a = 1/(1+total_z)
 
-# Cosmological paramters (these we could sample??)
-Omega_m0 = 0.3089
-H_0 = 67.74 #km/s/Mpc
+# Cosmological paramters, taken from most recent Planck data arxiv 1807.06209, added Omega Lambda
+Omega_m0 = .3111
+Omega_l0 = .6889
+H_0 = 67.66 #km/s/Mpc
 c = 299792 #km/s
 
 # Calculating the DL from the mu, We should probably use a more precise
@@ -57,7 +58,7 @@ LT_RM[0] = 1 - a[0]*Y[0]
 # example 1601.01451
 
 def E(x):
-	return (Omega_m0*(1+x)**3 + (1-Omega_m0))**(-1/2)
+	return (Omega_m0*(1+x)**3 + Omega_l0)**(-1/2)
 
 integral = np.zeros(data['zcmb'].shape[0])
 i = 0
@@ -89,10 +90,10 @@ plt.xlabel('t')
 plt.ylabel('a(t)')
 fig1.savefig('theirmethod.png')
 plt.show()
-# Now lets calculate the classical lookback time!
+# Now lets calculate the FLRW lookback time!
 
 def E2(x):
-	return 1/((1+x)*(Omega_m0*(1+x)**3 + (1-Omega_m0))**(1/2))
+	return 1/((1+x)*(Omega_m0*(1+x)**3 + Omega_l0)**(1/2))
 
 integral = np.zeros(data['zcmb'].shape[0])
 i = 0
